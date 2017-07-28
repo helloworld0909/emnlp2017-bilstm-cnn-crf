@@ -54,7 +54,7 @@ def perpareDataset(embeddingsPath, datasetFiles, frequencyThresholdUnknownTokens
     if reducePretrainedEmbeddings:
         logging.info("Compute which tokens are required for the experiment")
         def createDict(filename, tokenPos, vocab):    
-            for line in open(filename):                
+            for line in open(filename, encoding='utf-8'):
                 if line.startswith('#'):
                     continue                
                 splits = line.strip().split() 
@@ -111,7 +111,7 @@ def perpareDataset(embeddingsPath, datasetFiles, frequencyThresholdUnknownTokens
     
     # Extend embeddings file with new tokens 
     def createFD(filename, tokenIndex, fd, word2Idx):    
-        for line in open(filename):
+        for line in open(filename, encoding='utf-8'):
             
             if line.startswith('#'):
                 continue

@@ -7,7 +7,7 @@ def conllWrite(outputPath, sentences, headers):
     """
     if not os.path.exists(os.path.dirname(outputPath)):
         os.makedirs(os.path.dirname(outputPath))
-    fOut = open(outputPath, 'w')
+    fOut = open(outputPath, 'w', encoding='utf-8')
     
     
     for sentence in sentences:
@@ -33,7 +33,7 @@ def readCoNLL(inputPath, cols, commentSymbol=None, valTransformation=None):
     
     newData = False
     
-    for line in open(inputPath):
+    for line in open(inputPath, encoding='utf-8'):
         line = line.strip()
         if len(line) == 0 or (commentSymbol != None and line.startswith(commentSymbol)):
             if newData:      
