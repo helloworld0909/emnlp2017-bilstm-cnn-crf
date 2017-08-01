@@ -5,6 +5,8 @@ import sys
 from neuralnets.BiLSTM import BiLSTM
 from util.preprocessing import perpareDataset, loadDatasetPickle
 
+from crf.CRFFactory import CRFFeature
+
 # :: Change into the working dir of the script ::
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -28,9 +30,18 @@ logger.addHandler(ch)
 #
 ######################################################
 
+crfFeature = CRFFeature()
+dataColumnNames = crfFeature.get_feature_names()
+
+print('Data column names:', dataColumnNames)
+
 # :: Train / Dev / Test-Files ::
 datasetName = 'infobox'
-dataColumns = {0:'tokens', 1:'tag1', 2:'tag2', -1:'completion'}
+dataColumns = {0:'tokens', len(dataColumnNames) + 1:'completion'}
+
+for idx, name in enumerate(dataColumnNames):
+    dataColumns[idx] = name
+
 labelKey = 'completion'
 
 embeddingsPath = 'levy_deps.words' #Word embeddings by Levy et al: https://levyomer.wordpress.com/2014/04/25/dependency-based-word-embeddings/
